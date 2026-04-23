@@ -18,5 +18,20 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split vendor libraries into separate chunks
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          drei: ['@react-three/drei', '@react-three/fiber'],
+          three: ['three'],
+          utils: ['axios', 'framer-motion', 'zustand']
+        }
+      }
+    }
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom', '@react-three/fiber', '@react-three/drei', 'three']
   }
 })
